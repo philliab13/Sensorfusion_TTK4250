@@ -18,13 +18,13 @@ class MultiVarGauss2d:
         return iter((self.mean, self.cov))
 
     def get_transformed(self, lin_transform: np.ndarray) -> 'MultiVarGauss2d':
-        transformed_mean = None  # TODO
-        transformed_cov = None  # TODO
+        transformed_mean = lin_transform @ self.mean
+        transformed_cov = lin_transform @ self.cov @ lin_transform.T
         transformed = MultiVarGauss2d(transformed_mean, transformed_cov)
 
-        # TODO replace this with own code
-        transformed = gaussian_solu.MultiVarGauss2d.get_transformed(
-            self, lin_transform)
+        # # TODO replace this with own code
+        # transformed = gaussian_solu.MultiVarGauss2d.get_transformed(
+        #     self, lin_transform)
         return transformed
 
     def __str__(self) -> str:

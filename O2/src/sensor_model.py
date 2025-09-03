@@ -12,15 +12,16 @@ class LinearSensorModel2d:
     H: np.ndarray
     R: np.ndarray
 
-    def get_pred_meas(self, state_est: MultiVarGauss2d) -> MultiVarGauss2d:
-        pred_mean = None  # TODO
-        pred_cov = None  # TODO
+    def get_pred_meas(self, state_est: MultiVarGauss2d) -> MultiVarGauss2d:  # Ex 2f
+        # p(z)~N(z_bar,S), where z_bar =H*x_bar & S=H_c*P*H_c.T +R_c
+        pred_mean = self.H@state_est.mean
+        pred_cov = self.H@state_est.cov@self.H.T + self.R
 
         pred_meas = MultiVarGauss2d(pred_mean, pred_cov)
 
         # TODO replace this with own code
-        pred_meas = sensor_model_solu.LinearSensorModel2d.get_pred_meas(
-            self, state_est)
+        # pred_meas = sensor_model_solu.LinearSensorModel2d.get_pred_meas(
+        #     self, state_est)
 
         return pred_meas
 
